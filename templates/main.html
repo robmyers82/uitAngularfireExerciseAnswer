@@ -1,0 +1,79 @@
+<div class="container">
+	<div class="jumbotron">
+		<h1>UIT Exercise: AngularFire</h1>
+		<p>Your task, if you choose to take it, is to write the functionality for the following:</p>
+		<ul>
+			<li>Listing all to-dos using $firebaseArray</li>
+			<li>Adding a to-do to the list.</li>
+			<li>Editing a to-do using $firebaseObject</li>
+			<li>Removig a to-do</li>
+		</ul>
+		<p><strong>Key Info:</strong></p>
+		<ul>
+			<li>Firebase is already connected to my collection, so don't worry about that. However, you can use your own data if you want.</li>
+			<li>The data is stored in a collection called "todos". Your refs will need to be pointed there.</li>
+			<li>If you are using Rob's Firebase, please be kind and leave some data in there for users to test with. Basically, try and leave at least 3 items in there :)</li>
+		</ul>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Exercise Results:</h1>
+			<button class="btn btn-block btn-success" ng-click="showAddTodo()">Add a Todo</button><br>
+		</div>
+	</div>
+	<div class="list-group" ng-hide="todosList.length">
+		<p>No todos are available! Who's the guy that deleted them all! Slack Rob for more Todos!</p>
+	</div>
+	<div class="list-group" ng-show="todosList.length">
+		<div class="list-group-item clearfix" ng-repeat="todo in todosList">
+			<div class="pull-right">
+				<button ng-click="showEditTodo(todo.$id)" class="btn btn-info">Edit</button>
+			</div>
+			<p>
+				<input type="checkbox" ng-click="completeTodo(todo.$id)">&nbsp;&nbsp;
+				<strong>{{todo.name}} - </strong>{{todo.content}}
+			</p>
+		</div>
+	</div>
+</div>
+
+<div id="addTodoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add a Todo</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control modal-form" ng-model="newTodo.name" placeholder="Your name">
+		<input type="text" class="form-control modal-form" ng-model="newTodo.content" placeholder="Your actual To-do">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-lg btn-block btn-success" ng-click="addTodo(newTodo)">
+			Add
+		</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="editTodoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Update Todo</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control modal-form" ng-model="editTodo.name" placeholder="Your name">
+		<input type="text" class="form-control modal-form" ng-model="editTodo.content" placeholder="Your actual To-do">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-lg btn-block btn-success" ng-click="updateTodo()">
+			Update
+		</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
